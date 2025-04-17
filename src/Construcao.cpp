@@ -56,19 +56,25 @@ Solution Construcao(int cidades, Data& data, Solution& vParcial){
     r = 1;
     
     while(!CL.empty()){
+        cout << " " << endl;
+        cout << "NOVA ITERACAO!" << endl;
         std::vector<int> RCL;
 
         std::vector<InsertionInfo> custoInsercao = calcularCustoInsercao(CL, data, r); // retorna um vector de insertioninfo, com as informacoes do novo vertice, do atual r e do custo
 
         custoInsercao = ordenarEmOrdemCrescente(custoInsercao); //ordena os custo em ordem crescente 
+        /*
         for(int i = 0; i < custoInsercao.size(); i++){
             std::cout << custoInsercao[i].vertices << " ";
         }
         std::cout << std::endl;
 
+        */
+        // quantidade de vertices na subsequencia de CL
         int numRCL = std::ceil(alphaEscolhido * custoInsercao.size());
         std::cout << "numRCL:" << numRCL << std::endl;
 
+        // colocando essas quantidades em RCL
         for(int i = 0; i < numRCL; ++i) {
             RCL.push_back(custoInsercao[i].vertices);  
         }
@@ -79,10 +85,12 @@ Solution Construcao(int cidades, Data& data, Solution& vParcial){
         }
         std::cout << std::endl;
 
-
+        // escolhendo o indice aleatorio de RCL para colocar na sequencia
         std::srand(std::time(0));
         int index = std::rand() % RCL.size();
         std::cout << "index: " << index << std::endl;
+        
+        // definindo rzinho
         int r = RCL[index];
         std::cout << "rzinho:" << r << std::endl;
 
