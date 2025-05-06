@@ -21,6 +21,19 @@ std::vector<InsertionInfo> ordenarEmOrdemCrescente(std::vector<InsertionInfo>& b
     return beta; 
 }
 
+double calcularValorTotal(Solution& s, Data& data) {
+    double valorTotal = 0.0;
+
+    double latenciaAcumulada = 0.0;
+    for (int i = 1; i < s.sequencia.size(); i++) {
+        double custoAtual = data.getDistance(s.sequencia[i - 1], s.sequencia[i]);
+        latenciaAcumulada += custoAtual;
+        
+        valorTotal += latenciaAcumulada;
+    }
+    return valorTotal;
+}
+
 double escolherAlpha(std::vector<double> R) {
     std::srand(std::time(0));
 
@@ -35,17 +48,20 @@ Solution Construcao(int cidades, Data& data, Solution& vParcial){
     Solution s;
     int r;
 
-    for(double i = 0.00; i <= 0.26; i += 0.01) {
+    for(double i = 0.01; i <= 0.26; i += 0.01) {
         R.push_back(i);
     }
 
+    /*
     for (double value : R) {
         std::cout << value << " ";
     }
     std::cout << std::endl;
 
+    */
+    
     double alphaEscolhido = escolherAlpha(R);
-    std::cout << "alpha:" << alphaEscolhido << std::endl;
+    //std::cout << "alpha:" << alphaEscolhido << std::endl;
 
     for(int i = 2; i <= cidades; ++i){
         CL.push_back(i);
@@ -56,8 +72,8 @@ Solution Construcao(int cidades, Data& data, Solution& vParcial){
     r = 1;
     
     while(!CL.empty()){
-        cout << " " << endl;
-        cout << "NOVA ITERACAO!" << endl;
+        //cout << " " << endl;
+        //cout << "NOVA ITERACAO!" << endl;
         std::vector<int> RCL;
 
         std::vector<InsertionInfo> custoInsercao = calcularCustoInsercao(CL, data, r); // retorna um vector de insertioninfo, com as informacoes do novo vertice, do atual r e do custo
@@ -72,36 +88,41 @@ Solution Construcao(int cidades, Data& data, Solution& vParcial){
         */
         // quantidade de vertices na subsequencia de CL
         int numRCL = std::ceil(alphaEscolhido * custoInsercao.size());
-        std::cout << "numRCL:" << numRCL << std::endl;
+        //std::cout << "numRCL:" << numRCL << std::endl;
 
         // colocando essas quantidades em RCL
         for(int i = 0; i < numRCL; ++i) {
             RCL.push_back(custoInsercao[i].vertices);  
         }
 
-        cout << "RCL:" << endl;
-        for(int i = 0; i < RCL.size(); i++){
-            std::cout << RCL[i] << " ";
-        }
-        std::cout << std::endl;
+        //cout << "RCL:" << endl;
+        //for(int i = 0; i < RCL.size(); i++){
+        //    std::cout << RCL[i] << " ";
+        //}
+        //std::cout << std::endl;
 
         // escolhendo o indice aleatorio de RCL para colocar na sequencia
         std::srand(std::time(0));
         int index = std::rand() % RCL.size();
-        std::cout << "index: " << index << std::endl;
+        //std::cout << "index: " << index << std::endl;
         
         // definindo rzinho
         int r = RCL[index];
-        std::cout << "rzinho:" << r << std::endl;
+        //std::cout << "rzinho:" << r << std::endl;
 
         s.sequencia.push_back(r);
     
         CL.erase(std::remove(CL.begin(), CL.end(), r), CL.end());
     }   
-    
+
+    s.sequencia.push_back(1);
+
+    //s.valorObj = calcularValorTotal(s, data);
+
     for(int i = 0; i < s.sequencia.size(); i++){
         std::cout << s.sequencia[i] << " ";
     }
     std::cout << std::endl;
+    
     return s;
 }

@@ -22,7 +22,9 @@ struct InsertionInfo {
 
 std::vector<InsertionInfo> calcularCustoInsercao(std::vector<int>& CL, Data& data, int r);
 
-std::vector<InsertionInfo> ordenarEmOrdemCrescente(std::vector<InsertionInfo>& beta); 
+std::vector<InsertionInfo> ordenarEmOrdemCrescente(std::vector<InsertionInfo>& beta);
+
+double calcularValorTotal(Solution& s, Data& data);
 
 std::vector<int> inserirNaSolucao(Solution& sParcial, const std::vector<InsertionInfo>& custoInsercao, int selecionado, double alpha);
 

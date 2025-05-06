@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "Construcao.h"
+#include "BuscaLocal.h"
 #include <chrono>
 using namespace std;
 
@@ -22,6 +23,17 @@ int main(int argc, char *argv[]) {
         
         Parcial = Construcao(cidades, data, Parcial);
 
+        int n = Parcial.sequencia.size();
+
+        vector<vector<Subsequence>> subseq_matrix(n, vector<Subsequence>(n));
+        UpdateAllSubseq(Parcial, subseq_matrix, data);
+        Parcial.valorObj = subseq_matrix[0][n - 1].C;
+
+        std::cout << "Custo total: " << Parcial.valorObj << std::endl;
+
+
+        BuscaLocal(Parcial, subseq_matrix, data);
+ 
         return 0;
     }
 
