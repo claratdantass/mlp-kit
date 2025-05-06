@@ -16,17 +16,11 @@ struct Subsequence {
         Subsequence sigma;
         cout << " " << endl;
         double temp = data.getDistance(sigma_1.last, sigma_2.first);
-        cout << "temp: " << temp << endl;
         sigma.W = sigma_1.W + sigma_2.W;
-        cout << "sigma.W: " << sigma.W << endl;
         sigma.T = sigma_1.T + temp + sigma_2.T;
-        cout << "sigma.T: " << sigma.T << endl;
         sigma.C = sigma_1.C + sigma_2.W * (sigma_1.T + temp) + sigma_2.C;
-        cout << "sigma.C: " << sigma.C << endl;
         sigma.first = sigma_1.first;
-        cout << "sigma.first: " << sigma.first << endl;
         sigma.last = sigma_2.last;
-        cout << "sigma.last: " << sigma.last << endl;
         return sigma;
     }
 };

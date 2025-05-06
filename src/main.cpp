@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 
         vector<vector<Subsequence>> subseq_matrix(n, vector<Subsequence>(n));
         UpdateAllSubseq(Parcial, subseq_matrix, data);
-        Parcial.valorObj = subseq_matrix[0][n - 1].C;
+        Parcial.valorObj = subseq_matrix[0][n -1].C;
 
         std::cout << "Custo total: " << Parcial.valorObj << std::endl;
 
