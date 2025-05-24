@@ -1,3 +1,4 @@
+
 #include "Construcao.h"
 
 std::vector<InsertionInfo> calcularCustoInsercao(std::vector<int>& CL, Data& data, int r){
@@ -51,17 +52,7 @@ Solution Construcao(int cidades, Data& data, Solution& vParcial){
     for(double i = 0.01; i <= 0.26; i += 0.01) {
         R.push_back(i);
     }
-
-    /*
-    for (double value : R) {
-        std::cout << value << " ";
-    }
-    std::cout << std::endl;
-
-    */
-    
     double alphaEscolhido = escolherAlpha(R);
-    //std::cout << "alpha:" << alphaEscolhido << std::endl;
 
     for(int i = 2; i <= cidades; ++i){
         CL.push_back(i);
@@ -72,35 +63,19 @@ Solution Construcao(int cidades, Data& data, Solution& vParcial){
     r = 1;
     
     while(!CL.empty()){
-        //cout << " " << endl;
-        //cout << "NOVA ITERACAO!" << endl;
         std::vector<int> RCL;
 
         std::vector<InsertionInfo> custoInsercao = calcularCustoInsercao(CL, data, r); // retorna um vector de insertioninfo, com as informacoes do novo vertice, do atual r e do custo
 
         custoInsercao = ordenarEmOrdemCrescente(custoInsercao); //ordena os custo em ordem crescente 
-        /*
-        for(int i = 0; i < custoInsercao.size(); i++){
-            std::cout << custoInsercao[i].vertices << " ";
-        }
-        std::cout << std::endl;
-
-        */
-        // quantidade de vertices na subsequencia de CL
+        
         int numRCL = std::ceil(alphaEscolhido * custoInsercao.size());
-        //std::cout << "numRCL:" << numRCL << std::endl;
 
-        // colocando essas quantidades em RCL
         for(int i = 0; i < numRCL; ++i) {
             RCL.push_back(custoInsercao[i].vertices);  
         }
 
-        //cout << "RCL:" << endl;
-        //for(int i = 0; i < RCL.size(); i++){
-        //    std::cout << RCL[i] << " ";
-        //}
-        //std::cout << std::endl;
-
+        
         // escolhendo o indice aleatorio de RCL para colocar na sequencia
         std::srand(std::time(0));
         int index = std::rand() % RCL.size();
@@ -108,7 +83,6 @@ Solution Construcao(int cidades, Data& data, Solution& vParcial){
         
         // definindo rzinho
         int r = RCL[index];
-        //std::cout << "rzinho:" << r << std::endl;
 
         s.sequencia.push_back(r);
     
@@ -116,8 +90,6 @@ Solution Construcao(int cidades, Data& data, Solution& vParcial){
     }   
 
     s.sequencia.push_back(1);
-
-    //s.valorObj = calcularValorTotal(s, data);
 
     for(int i = 0; i < s.sequencia.size(); i++){
         std::cout << s.sequencia[i] << " ";

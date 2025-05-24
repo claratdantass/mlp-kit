@@ -6,6 +6,7 @@
 #include <random> 
 #include <cstdlib>
 #include <ctime>
+#pragma once
 using namespace std;
 
 
