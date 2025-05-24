@@ -1,4 +1,3 @@
-/*
 #include "Data.h"
 #include <iostream>
 #include <vector>
@@ -19,7 +18,6 @@ int main(int argc, char *argv[]) {
         auto data = Data(argc, argv[1]); 
         data.read();
 
-        auto start = std::chrono::high_resolution_clock::now();
         const int cidades = data.getDimension();
         std::cout << cidades << std::endl;
 
@@ -38,18 +36,30 @@ int main(int argc, char *argv[]) {
         for(int i = 0; i < maxIter; i++){
             Parcial = Construcao(cidades, data, Parcial); 
 
+            int n = Parcial.sequencia.size();
+
+            vector<vector<Subsequence>> subseq_matrix(n, vector<Subsequence>(n));
+
+            UpdateAllSubseq(Parcial, subseq_matrix, data);
+
+            Parcial.valorObj = subseq_matrix[0][n - 1].C;
+
+            cout << "custo da sequencia na construcao: " << Parcial.valorObj << std::endl;
+
             Solution best = Parcial;
 
             int iterIls = 0;
 
             while(iterIls <= maxIterIls){
                 BuscaLocal(Parcial, data);
+
+                cout << "custo da sequencia na busca local: " << Parcial.valorObj << std::endl;
                 
                 if(Parcial.valorObj < best.valorObj){
                     best = Parcial;
                     iterIls = 0;
                 }
-                Parcial = Perturbacao(best, data); 
+                Parcial = Perturbacao(best, data);         
                 iterIls = iterIls + 1;
             }
             if (best.valorObj < bestOfAll.valorObj)
@@ -61,9 +71,9 @@ int main(int argc, char *argv[]) {
         return 0;
     }    
 }
-*/
 
 
+/*
 #include "Data.h"
 #include <iostream>
 #include <vector>
@@ -109,9 +119,11 @@ int main(int argc, char *argv[]) {
             
         BuscaLocal(Parcial, data);
 
-        //cout << "Custo total: " << bestOfAll.valorObj << std::endl;
+        cout << "custo da sequencia na busca local: " << Parcial.valorObj << std::endl;
+
+
 
         return 0;
     }    
 }
-
+*/
