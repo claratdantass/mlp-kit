@@ -1,3 +1,4 @@
+
 #include "Data.h"
 #include <iostream>
 #include <vector>
@@ -66,6 +67,7 @@ int main(int argc, char *argv[]) {
                 bestOfAll = best;
         }
 
+        cout << " " << std::endl;
         cout << "Custo total: " << bestOfAll.valorObj << std::endl;
 
         return 0;
@@ -119,6 +121,12 @@ int main(int argc, char *argv[]) {
             
         BuscaLocal(Parcial, data);
 
+        cout << "sequencia na busca local: " << Parcial.valorObj << std::endl;
+        for(int i = 0; i < Parcial.sequencia.size(); i++){
+            std::cout << Parcial.sequencia[i] << " ";
+        }
+        std::cout << std::endl;
+
         cout << "custo da sequencia na busca local: " << Parcial.valorObj << std::endl;
 
 
@@ -126,4 +134,5 @@ int main(int argc, char *argv[]) {
         return 0;
     }    
 }
+
 */

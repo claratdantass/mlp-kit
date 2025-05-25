@@ -44,25 +44,25 @@ bool bestImprovementSwap(Solution& sParcial, std::vector<std::vector<Subsequence
             sigma_final = Subsequence::Concatenate(sigma_3, subseq_matrix[j + 1][sParcial.sequencia.size() - 1], data);
 
             if (sigma_final.C < sParcial.valorObj) {
+                /*
                 cout << "sigma final: " << sigma_final.C << endl;
                 cout << "sParcial.valorObj: " << sParcial.valorObj << endl;
                 
-                //cout << "i: " << sParcial.sequencia[i] << " j: " << sParcial.sequencia[j] << std::endl;
+                cout << "i: " << sParcial.sequencia[i] << " j: " << sParcial.sequencia[j] << std::endl;
 
-                /*
-                for(int i = 0; i < sParcial.sequencia.size(); i++){
-                    std::cout << sParcial.sequencia[i] << " ";
-                }
-                */
                 
-
-                std::swap(sParcial.sequencia[i], sParcial.sequencia[j]);
-
-                /*
-        
                 for(int i = 0; i < sParcial.sequencia.size(); i++){
                     std::cout << sParcial.sequencia[i] << " ";
                 }
+                std::cout << std::endl;
+                */
+                std::swap(sParcial.sequencia[i], sParcial.sequencia[j]);
+        
+                /*
+                for(int i = 0; i < sParcial.sequencia.size(); i++){
+                    std::cout << sParcial.sequencia[i] << " ";
+                }
+                std::cout << std::endl;
                 */
                 
                 UpdateAllSubseq(sParcial, subseq_matrix, data);
@@ -86,19 +86,18 @@ bool bestImprovement2Opt(Solution& sParcial, std::vector<std::vector<Subsequence
             sigma_2 = Subsequence::Concatenate(sigma_1, subseq_matrix[j + 1][sParcial.sequencia.size() - 1], data); // the sigma goes to the sigma_2
             
             if (sigma_2.C < sParcial.valorObj) {
+                /*
                 cout << "sigma 2: " << sigma_2.C << endl;
                 cout << "sParcial.valorObj: " << sParcial.valorObj << endl;
                 
-                //cout << "i: " << sParcial.sequencia[i] << " j: " << sParcial.sequencia[j] << std::endl;
+                cout << "i: " << sParcial.sequencia[i] << " j: " << sParcial.sequencia[j] << std::endl;
 
-                /*
+                
                 for(int i = 0; i < sParcial.sequencia.size(); i++){
                     std::cout << sParcial.sequencia[i] << " ";
                 }
                 std::cout << std::endl;
-
                 */
-            
                 std::reverse(sParcial.sequencia.begin() + i, sParcial.sequencia.begin() + j + 1);
 
                 /*
@@ -106,9 +105,8 @@ bool bestImprovement2Opt(Solution& sParcial, std::vector<std::vector<Subsequence
                     std::cout << sParcial.sequencia[i] << " ";
                 }
                 std::cout << std::endl;
-
                 */
-    
+
                 UpdateAllSubseq(sParcial, subseq_matrix, data);
                 sParcial.valorObj = sigma_2.C;
                 //sParcial.valorObj = subseq_matrix[0][sParcial.sequencia.size() - 1].C;
@@ -140,11 +138,11 @@ bool bestImprovementN1(Solution& sParcial, std::vector<std::vector<Subsequence>>
             }
 
             if (sigma_3.C < sParcial.valorObj) {
-                cout << "sigma 3: " << sigma_3.C << endl;
-                cout << "sParcial.valorObj: " << sParcial.valorObj << endl;
+                //cout << "sigma 3: " << sigma_3.C << endl;
+                //cout << "sParcial.valorObj: " << sParcial.valorObj << endl;
                 
                 int node = sParcial.sequencia[i];
-                
+
                 //cout << "i: " << sParcial.sequencia[i] << " j: " << sParcial.sequencia[j] << std::endl;
 
                 /*
@@ -158,20 +156,13 @@ bool bestImprovementN1(Solution& sParcial, std::vector<std::vector<Subsequence>>
                 if (j < i) {
                     //cout << "j < i" << endl;
                     sParcial.sequencia.erase(sParcial.sequencia.begin() + i);
-                    sParcial.sequencia.insert(sParcial.sequencia.begin() + j, node);
+                    sParcial.sequencia.insert(sParcial.sequencia.begin() + j + 1, node);
                 } else {
                     //cout << "j > i" << endl;
                     sParcial.sequencia.insert(sParcial.sequencia.begin() + j + 1, node);
                     sParcial.sequencia.erase(sParcial.sequencia.begin() + i);
                 }
 
-                /*
-                for(int i = 0; i < sParcial.sequencia.size(); i++) {
-                    std::cout << sParcial.sequencia[i] << " ";
-                }
-                std::cout << std::endl;
-
-                */
                 
                 UpdateAllSubseq(sParcial, subseq_matrix, data);
                 sParcial.valorObj = sigma_3.C;
@@ -201,36 +192,20 @@ bool bestImprovementN2(Solution& sParcial, std::vector<std::vector<Subsequence>>
             }
 
             if (sigma_3.C < sParcial.valorObj) {
-                cout << "sigma 3: " << sigma_3.C << endl;
-                cout << "sParcial.valorObj: " << sParcial.valorObj << endl;
+
+                //cout << "sigma 3: " << sigma_3.C << endl;
+                //cout << "sParcial.valorObj: " << sParcial.valorObj << endl;
                 
                 std::vector<int> bloco = {sParcial.sequencia[i], sParcial.sequencia[i + 1]};
 
-                //cout << "i: " << sParcial.sequencia[i] << " j: " << sParcial.sequencia[j] << std::endl;
-
-                /*
-                for(int i = 0; i < sParcial.sequencia.size(); i++){
-                    std::cout << sParcial.sequencia[i] << " ";
-                }
-                std::cout << std::endl;
-            
-                */
-                
                 if (j < i) {
                     sParcial.sequencia.erase(sParcial.sequencia.begin() + i, sParcial.sequencia.begin() + i + 2);
-                    sParcial.sequencia.insert(sParcial.sequencia.begin() + j, bloco.begin(), bloco.end());
+                    sParcial.sequencia.insert(sParcial.sequencia.begin() + j + 1, bloco.begin(), bloco.end());
                 } else {
                     sParcial.sequencia.insert(sParcial.sequencia.begin() + j + 1, bloco.begin(), bloco.end());
                     sParcial.sequencia.erase(sParcial.sequencia.begin() + i, sParcial.sequencia.begin() + i + 2);
-                }
+                }  
 
-                /*
-                for(int i = 0; i < sParcial.sequencia.size(); i++){
-                    std::cout << sParcial.sequencia[i] << " ";
-                }
-                std::cout << std::endl;
-                
-                */
                 
                 UpdateAllSubseq(sParcial, subseq_matrix, data);
                 sParcial.valorObj = sigma_3.C;
@@ -248,7 +223,7 @@ bool bestImprovementN3(Solution& sParcial, std::vector<std::vector<Subsequence>>
     for (int i = 1; i < sParcial.sequencia.size() - 4; ++i){
         for (int j = 0; j < sParcial.sequencia.size() - 1; ++j){  
             if (j == i || j == i + 1 || j == i + 2) continue;
-            
+                
             //correct one
             if (j < i) {
                 sigma_1 = Subsequence::Concatenate(subseq_matrix[0][j], subseq_matrix[i][i + 2], data);
@@ -261,24 +236,14 @@ bool bestImprovementN3(Solution& sParcial, std::vector<std::vector<Subsequence>>
             }
     
             if(sigma_3.C < sParcial.valorObj){
-                cout << "sigma 3: " << sigma_3.C << endl;
-                cout << "sParcial.valorObj: " << sParcial.valorObj << endl;
+                //cout << "sigma 3: " << sigma_3.C << endl;
+                //cout << "sParcial.valorObj: " << sParcial.valorObj << endl;
                 
                 std::vector<int> bloco = {
                     sParcial.sequencia[i],
                     sParcial.sequencia[i + 1],
                     sParcial.sequencia[i + 2]
                 };
-
-                //cout << "i: " << sParcial.sequencia[i] << " j: " << sParcial.sequencia[j] << std::endl;
-
-                /*
-                for(int i = 0; i < sParcial.sequencia.size(); i++){
-                    std::cout << sParcial.sequencia[i] << " ";
-                }
-                std::cout << std::endl;
-
-                */
                 
                 if (j < i) {
                     //cout << "j < i" << endl;
@@ -289,15 +254,6 @@ bool bestImprovementN3(Solution& sParcial, std::vector<std::vector<Subsequence>>
                     sParcial.sequencia.insert(sParcial.sequencia.begin() + j + 1, bloco.begin(), bloco.end());
                     sParcial.sequencia.erase(sParcial.sequencia.begin() + i, sParcial.sequencia.begin() + i + 3);
                 }
-
-                /*
-                for(int i = 0; i < sParcial.sequencia.size(); i++){
-                    std::cout << sParcial.sequencia[i] << " ";
-                }
-                std::cout << std::endl;
-
-                */
-                
                 UpdateAllSubseq(sParcial, subseq_matrix, data);
                 sParcial.valorObj = sigma_3.C;
 
@@ -310,6 +266,8 @@ bool bestImprovementN3(Solution& sParcial, std::vector<std::vector<Subsequence>>
 
 void BuscaLocal(Solution& sParcial, Data& data){
     std::vector<int> NL = {1, 2, 3, 4, 5}; 
+    //std::vector<int> NL = {1}; 
+
     bool improved = false;
 
     while (!NL.empty()) {
@@ -325,30 +283,30 @@ void BuscaLocal(Solution& sParcial, Data& data){
 
         switch (NL[n]){
             case 1:
-                std::cout << "SWAP" << std::endl;
+                //std::cout << "SWAP" << std::endl;
                 improved = bestImprovementSwap(sParcial, subseq_matrix, data);
                 break;
             case 2:
-                std::cout << "2 OPT" << std::endl;
+                //std::cout << "2 OPT" << std::endl;
                 improved = bestImprovement2Opt(sParcial, subseq_matrix, data);
                 break;
             case 3:
-                std::cout << "N1" << std::endl;
+                //std::cout << "N1" << std::endl;
                 improved = bestImprovementN1(sParcial, subseq_matrix, data);
                 break;
             case 4: 
-                std::cout << "N2" << std::endl;
+                //std::cout << "N2" << std::endl;
                 improved = bestImprovementN2(sParcial, subseq_matrix, data);
                 break;
             case 5: 
-                std::cout << "N3" << std::endl;
+                //std::cout << "N3" << std::endl;
                 improved = bestImprovementN3(sParcial, subseq_matrix, data);
                 break;
-            
             
         }
 
         if (improved){
+            //NL = {1}; 
             NL = {1, 2, 3, 4, 5};
         }else{
             NL.erase(NL.begin() + n);
