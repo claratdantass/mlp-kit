@@ -2,6 +2,11 @@
 
 como rodar ./tsp instances/instancia.tsp
 
+gdb ./tsp 
+y
+run instances/dantzig42.tsp
+bt
+
 ils:
 
 Solution ILS(int maxIter, int maxIterIls)

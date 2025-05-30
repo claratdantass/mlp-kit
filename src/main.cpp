@@ -19,14 +19,21 @@ int main(int argc, char *argv[]) {
         auto data = Data(argc, argv[1]); 
         data.read();
 
+        
         const int cidades = data.getDimension();
         std::cout << cidades << std::endl;
+        auto start = std::chrono::high_resolution_clock::now();
+
 
         Solution bestOfAll;
         Solution Parcial;
         bestOfAll.valorObj = INFINITY;
         int maxIterIls;
         int maxIter = 50;
+
+        int num = cidades + 1;
+
+        vector<vector<Subsequence>> subseq_matrix(num, vector<Subsequence>(num));
     
         if(cidades >= 150){
             maxIterIls = (cidades/2);
@@ -37,24 +44,24 @@ int main(int argc, char *argv[]) {
         for(int i = 0; i < maxIter; i++){
             Parcial = Construcao(cidades, data, Parcial); 
 
-            int n = Parcial.sequencia.size();
-
-            vector<vector<Subsequence>> subseq_matrix(n, vector<Subsequence>(n));
-
             UpdateAllSubseq(Parcial, subseq_matrix, data);
 
-            Parcial.valorObj = subseq_matrix[0][n - 1].C;
+            Parcial.valorObj = subseq_matrix[0][num - 1].C;
 
-            cout << "custo da sequencia na construcao: " << Parcial.valorObj << std::endl;
+            //cout << "custo da sequencia na construcao: " << Parcial.valorObj << std::endl;
 
             Solution best = Parcial;
 
             int iterIls = 0;
 
             while(iterIls <= maxIterIls){
-                BuscaLocal(Parcial, data);
+                UpdateAllSubseq(Parcial, subseq_matrix, data);
 
-                cout << "custo da sequencia na busca local: " << Parcial.valorObj << std::endl;
+                Parcial.valorObj = subseq_matrix[0][num - 1].C;
+
+                BuscaLocal(Parcial, subseq_matrix, data);
+
+                //cout << "custo da sequencia na busca local: " << Parcial.valorObj << std::endl;
                 
                 if(Parcial.valorObj < best.valorObj){
                     best = Parcial;
@@ -69,6 +76,14 @@ int main(int argc, char *argv[]) {
 
         cout << " " << std::endl;
         cout << "Custo total: " << bestOfAll.valorObj << std::endl;
+
+        auto end = std::chrono::high_resolution_clock::now();
+
+        // Calcula a duração do código
+        std::chrono::duration<double> duration = end - start;
+
+        // Imprime o tempo em segundos
+        std::cout << "tempo: " << duration.count() << std::endl;
 
         return 0;
     }    

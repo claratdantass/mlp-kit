@@ -32,6 +32,6 @@ bool bestImprovement2Opt(Solution& sParcial, std::vector<std::vector<Subsequence
 
 bool bestImprovementN2(Solution& sParcial, std::vector<std::vector<Subsequence>>& subseq_matrix, Data& data);
 
-//void BuscaLocal(Solution& sParcial, std::vector<std::vector<Subsequence>>& subseq_matrix, Data& data);
+void BuscaLocal(Solution& sParcial, std::vector<std::vector<Subsequence>>& subseq_matrix, Data& data);
 
-void BuscaLocal(Solution& sParcial, Data& data);
+//void BuscaLocal(Solution& sParcial, Data& data);

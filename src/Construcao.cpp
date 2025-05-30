@@ -91,10 +91,5 @@ Solution Construcao(int cidades, Data& data, Solution& vParcial){
 
     s.sequencia.push_back(1);
 
-    for(int i = 0; i < s.sequencia.size(); i++){
-        std::cout << s.sequencia[i] << " ";
-    }
-    std::cout << std::endl;
-    
     return s;
 }
