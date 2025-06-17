@@ -29,16 +29,16 @@ int main(int argc, char *argv[]) {
         Solution Parcial;
         bestOfAll.valorObj = INFINITY;
         int maxIterIls;
-        int maxIter = 50;
+        int maxIter = 10;
 
         int num = cidades + 1;
 
         vector<vector<Subsequence>> subseq_matrix(num, vector<Subsequence>(num));
     
-        if(cidades >= 150){
-            maxIterIls = (cidades/2);
-        }else{
+        if(cidades < 100){
             maxIterIls = cidades;
+        }else{
+            maxIterIls = 100;
         }          
 
         for(int i = 0; i < maxIter; i++){

@@ -38,15 +38,24 @@ bool bestImprovementSwap(Solution& sParcial, std::vector<std::vector<Subsequence
     double bestDelta = 0;
     int tam = sParcial.sequencia.size();
 
-    Subsequence sigma_1, sigma_2, sigma_3, sigma_final;
+    Subsequence sigma_1;
+    //Subsequence sigma_1, sigma_2, sigma_3, sigma_final;
     for (int i = 1; i < sParcial.sequencia.size() - 1; i++) {
-        for (int j = i + 1; j < sParcial.sequencia.size() - 1; j++) {
+        for (int j = i + 2; j < sParcial.sequencia.size() - 1; j++) {
 
+            /*
             sigma_1 = Subsequence::Concatenate(subseq_matrix[0][i - 1], subseq_matrix[j][j], data);
             sigma_2 = Subsequence::Concatenate(sigma_1, subseq_matrix[i + 1][j - 1], data);
             sigma_3 = Subsequence::Concatenate(sigma_2, subseq_matrix[i][i], data);
             sigma_final = Subsequence::Concatenate(sigma_3, subseq_matrix[j + 1][sParcial.sequencia.size() - 1], data);
 
+            */
+            sigma_1 = Subsequence::Concatenate(subseq_matrix[0][i - 1], subseq_matrix[j][j], data);
+            sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[i + 1][j - 1], data);
+            sigma_1 = Subsequence::Concatenate(sigma_2, subseq_matrix[i][i], data);
+            sigma_1 = Subsequence::Concatenate(sigma_3, subseq_matrix[j + 1][sParcial.sequencia.size() - 1], data);
+
+            /*
             if (sigma_final.C < sParcial.valorObj){
                 //cout << "sigma: " << sigma_final.C << endl;
                 //cout << "valorObj: " << sParcial.valorObj << endl;
@@ -56,6 +65,17 @@ bool bestImprovementSwap(Solution& sParcial, std::vector<std::vector<Subsequence
                 best_i = i;
                 best_j = j;                
             }
+            */
+           if (sigma_1.C < sParcial.valorObj){
+                //cout << "sigma: " << sigma_final.C << endl;
+                //cout << "valorObj: " << sParcial.valorObj << endl;
+
+                bestDelta = sigma_final.C - sParcial.valorObj;
+                sParcial.valorObj = sigma_final.C;
+                best_i = i;
+                best_j = j;                
+            }
+            
         }
     }
 
