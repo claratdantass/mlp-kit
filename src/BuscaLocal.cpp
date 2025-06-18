@@ -52,8 +52,8 @@ bool bestImprovementSwap(Solution& sParcial, std::vector<std::vector<Subsequence
             */
             sigma_1 = Subsequence::Concatenate(subseq_matrix[0][i - 1], subseq_matrix[j][j], data);
             sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[i + 1][j - 1], data);
-            sigma_1 = Subsequence::Concatenate(sigma_2, subseq_matrix[i][i], data);
-            sigma_1 = Subsequence::Concatenate(sigma_3, subseq_matrix[j + 1][sParcial.sequencia.size() - 1], data);
+            sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[i][i], data);
+            sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[j + 1][sParcial.sequencia.size() - 1], data);
 
             /*
             if (sigma_final.C < sParcial.valorObj){
@@ -70,8 +70,8 @@ bool bestImprovementSwap(Solution& sParcial, std::vector<std::vector<Subsequence
                 //cout << "sigma: " << sigma_final.C << endl;
                 //cout << "valorObj: " << sParcial.valorObj << endl;
 
-                bestDelta = sigma_final.C - sParcial.valorObj;
-                sParcial.valorObj = sigma_final.C;
+                bestDelta = sigma_1.C - sParcial.valorObj;
+                sParcial.valorObj = sigma_1.C;
                 best_i = i;
                 best_j = j;                
             }
@@ -95,18 +95,20 @@ bool bestImprovement2Opt(Solution& sParcial, std::vector<std::vector<Subsequence
     int best_i, best_j;
     double bestDelta = 0;
     int tam = sParcial.sequencia.size();
+    
+    Subsequence sigma_1; 
 
-    Subsequence sigma_1, sigma_2, sigma_final; 
+    //Subsequence sigma_1, sigma_2, sigma_final; 
     for (int i = 1; i < sParcial.sequencia.size() - 1; i++) {
         for (int j = i + 2; j < sParcial.sequencia.size() - 1; j++) {
             
             sigma_1 = Subsequence::Concatenate(subseq_matrix[0][i - 1], subseq_matrix[j][i], data);
-            sigma_2 = Subsequence::Concatenate(sigma_1, subseq_matrix[j + 1][sParcial.sequencia.size() - 1], data); // the sigma goes to the sigma_2
+            sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[j + 1][sParcial.sequencia.size() - 1], data); // the sigma goes to the sigma_2
             
-            if (sigma_2.C < sParcial.valorObj) {
-                bestDelta = sigma_2.C - sParcial.valorObj;
+            if (sigma_1.C < sParcial.valorObj) {
+                bestDelta = sigma_1.C - sParcial.valorObj;
                 
-                sParcial.valorObj = sigma_2.C;
+                sParcial.valorObj = sigma_1.C;
                 best_i = i;
                 best_j = j;
 
@@ -130,7 +132,8 @@ bool bestImprovementN1(Solution& sParcial, std::vector<std::vector<Subsequence>>
     double bestDelta = 0;
     int tam = sParcial.sequencia.size();
 
-    Subsequence sigma_1, sigma_2, sigma_3;
+    //Subsequence sigma_1, sigma_2, sigma_3;
+    Subsequence sigma_1;
 
     for (int i = 1; i < sParcial.sequencia.size() - 1; ++i) {
         for (int j = 0; j < sParcial.sequencia.size() - 1; ++j) {
@@ -138,17 +141,17 @@ bool bestImprovementN1(Solution& sParcial, std::vector<std::vector<Subsequence>>
 
             if (j < i) {
                 sigma_1 = Subsequence::Concatenate(subseq_matrix[0][j], subseq_matrix[i][i + 1], data);
-                sigma_2 = Subsequence::Concatenate(sigma_1, subseq_matrix[j + 1][i - 1], data);
-                sigma_3 = Subsequence::Concatenate(sigma_2, subseq_matrix[i + 1][sParcial.sequencia.size() - 1], data);
+                sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[j + 1][i - 1], data);
+                sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[i + 1][sParcial.sequencia.size() - 1], data);
             } else {
                 sigma_1 = Subsequence::Concatenate(subseq_matrix[0][i - 1], subseq_matrix[i + 1][j], data);
-                sigma_2 = Subsequence::Concatenate(sigma_1, subseq_matrix[i][i], data);
-                sigma_3 = Subsequence::Concatenate(sigma_2, subseq_matrix[j + 1][sParcial.sequencia.size() - 1], data);
+                sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[i][i], data);
+                sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[j + 1][sParcial.sequencia.size() - 1], data);
             }
 
-            if (sigma_3.C < sParcial.valorObj) {
-                bestDelta = sigma_3.C - sParcial.valorObj;
-                sParcial.valorObj = sigma_3.C;
+            if (sigma_1.C < sParcial.valorObj) {
+                bestDelta = sigma_1.C - sParcial.valorObj;
+                sParcial.valorObj = sigma_1.C;
                 best_i = i;
                 best_j = j;
 
@@ -182,7 +185,8 @@ bool bestImprovementN2(Solution& sParcial, std::vector<std::vector<Subsequence>>
     double bestDelta = 0;
     int tam = sParcial.sequencia.size();
 
-    Subsequence sigma_1, sigma_2, sigma_3;
+    //Subsequence sigma_1, sigma_2, sigma_3;
+    Subsequence sigma_1;
 
     for(int i = 1; i < sParcial.sequencia.size() - 3; ++i){
         for(int j = 0; j < sParcial.sequencia.size() - 1; ++j){
@@ -190,17 +194,17 @@ bool bestImprovementN2(Solution& sParcial, std::vector<std::vector<Subsequence>>
 
             if (j < i) {
                 sigma_1 = Subsequence::Concatenate(subseq_matrix[0][j], subseq_matrix[i][i + 1], data);
-                sigma_2 = Subsequence::Concatenate(sigma_1, subseq_matrix[j + 1][i - 1], data);
-                sigma_3 = Subsequence::Concatenate(sigma_2, subseq_matrix[i + 2][sParcial.sequencia.size() - 1], data);
+                sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[j + 1][i - 1], data);
+                sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[i + 2][sParcial.sequencia.size() - 1], data);
             } else {
                 sigma_1 = Subsequence::Concatenate(subseq_matrix[0][i - 1], subseq_matrix[i + 2][j], data);
-                sigma_2 = Subsequence::Concatenate(sigma_1, subseq_matrix[i][i + 1], data);
-                sigma_3 = Subsequence::Concatenate(sigma_2, subseq_matrix[j + 1][sParcial.sequencia.size() - 1], data);
+                sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[i][i + 1], data);
+                sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[j + 1][sParcial.sequencia.size() - 1], data);
             }
 
-            if (sigma_3.C < sParcial.valorObj) {                
-                bestDelta = sigma_3.C - sParcial.valorObj;
-                sParcial.valorObj = sigma_3.C;
+            if (sigma_1.C < sParcial.valorObj) {                
+                bestDelta = sigma_1.C - sParcial.valorObj;
+                sParcial.valorObj = sigma_1.C;
                 best_i = i;
                 best_j = j;
 
@@ -232,7 +236,8 @@ bool bestImprovementN3(Solution& sParcial, std::vector<std::vector<Subsequence>>
     double bestDelta = 0;
     int tam = sParcial.sequencia.size();
 
-    Subsequence sigma_1, sigma_2, sigma_3;
+    //Subsequence sigma_1, sigma_2, sigma_3;
+    Subsequence sigma_1;
 
     for (int i = 1; i < sParcial.sequencia.size() - 4; ++i){
         for (int j = 0; j < sParcial.sequencia.size() - 1; ++j){  
@@ -240,17 +245,17 @@ bool bestImprovementN3(Solution& sParcial, std::vector<std::vector<Subsequence>>
                 
             if (j < i) {
                 sigma_1 = Subsequence::Concatenate(subseq_matrix[0][j], subseq_matrix[i][i + 2], data);
-                sigma_2 = Subsequence::Concatenate(sigma_1, subseq_matrix[j + 1][i - 1], data);
-                sigma_3 = Subsequence::Concatenate(sigma_2, subseq_matrix[i + 3][sParcial.sequencia.size() - 1], data);
+                sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[j + 1][i - 1], data);
+                sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[i + 3][sParcial.sequencia.size() - 1], data);
             } else {
                 sigma_1 = Subsequence::Concatenate(subseq_matrix[0][i - 1], subseq_matrix[i + 3][j], data);
-                sigma_2 = Subsequence::Concatenate(sigma_1, subseq_matrix[i][i + 2], data);
-                sigma_3 = Subsequence::Concatenate(sigma_2, subseq_matrix[j + 1][sParcial.sequencia.size() - 1], data);
+                sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[i][i + 2], data);
+                sigma_1 = Subsequence::Concatenate(sigma_1, subseq_matrix[j + 1][sParcial.sequencia.size() - 1], data);
             }
     
-            if(sigma_3.C < sParcial.valorObj){
-                bestDelta = sigma_3.C - sParcial.valorObj;
-                sParcial.valorObj = sigma_3.C;
+            if(sigma_1.C < sParcial.valorObj){
+                bestDelta = sigma_1.C - sParcial.valorObj;
+                sParcial.valorObj = sigma_1.C;
                 best_i = i;
                 best_j = j;
 
